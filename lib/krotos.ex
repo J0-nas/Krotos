@@ -2,10 +2,8 @@ defmodule Krotos do
   use HTTPoison.Base
   @moduledoc """
   Client for using the Napster Api.
-  Relies on keys.txt file containing the API keys.
+  Relies on the system enviroment variable NAPSTER_API_KEY to issue the requests.
   """
-
-  #Base URL used for all API requests
   @baseURL "https://api.napster.com/v2.1/"
 
   @doc """
@@ -17,10 +15,21 @@ defmodule Krotos do
 
   def listGenres do
     url = @baseURL <> "genres"
-    case HTTPoison.get url, headers: [apikey: key()] do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> IO.puts ("Success" <> body)
-      {:ok, %HTTPoison.Response{status_code: 400, body: body}} -> IO.puts "Bad Request" <> body
+    headers = [apikey: key()]
+    case HTTPoison.get url, [apikey: key()] do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        #IO.puts ("Success: " <> body)
+        handleResponse(:listGenres, body)
       {:error, %HTTPoison.Error{reason: reason}} -> IO.inspect reason
+      _ -> IO.puts "Unknown Error"
     end
+  end
+
+  def handleResponse(:listGenres, body) do
+    :listGenres
+  end
+
+  def handleResponse(:getTopTracksForGenre) do
+
   end
 end
