@@ -32,11 +32,11 @@ defmodule Krotos do
     url = @baseURL <> "genres/" <> genre <> "/tracks/top"
     url =
       if limit > 0 and limit <= 200 do
-       url <> "?limit=#{limit}"
+        url <> "?limit=#{limit}"
       else
         url
-    end
-    IO.puts "Url: " <> to_string url
+      end
+    IO.puts "Url: " <> url
 
     case HTTPoison.get url, [apikey: key()] do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
