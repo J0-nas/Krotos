@@ -30,9 +30,13 @@ defmodule Krotos do
 
   def getTopTracksForGenre(genre, limit) do
     url = @baseURL <> "genres/" <> genre <> "/tracks/top"
-    url = if limit > 0 and limit <= 200 do
+    url =
+      if limit > 0 and limit <= 200 do
        url <> "?limit=#{limit}"
+      else
+        url
     end
+    IO.puts "Url: " <> to_string url
 
     case HTTPoison.get url, [apikey: key()] do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
