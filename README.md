@@ -1,6 +1,6 @@
 # Krotos
 
-Client for a subset of the Napster API - Implemented for TDDD27
+Client for a subset of the Napster API - Implemented for TDDD27.
 
 ## Installation
 
