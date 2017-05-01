@@ -118,7 +118,7 @@ defmodule Krotos do
     end
 
     def buildTop100Info(dict) do
-      Enum.map(dict["tracks"], fn(x) -> {
+      Enum.map(dict["tracks"], fn(x) -> %{
         :id => x["id"],
         :title => x["name"],
         :artist => x["artistName"],
@@ -128,7 +128,7 @@ defmodule Krotos do
     end
 
     def buildGenreList(dict) do
-      Enum.map(dict["genres"], fn(x) -> {
+      Enum.map(dict["genres"], fn(x) -> %{
         :id => x["id"],
         :title => x["name"],
         :subgenreList => x["links"]["childGenres"]["ids"]}
@@ -136,7 +136,7 @@ defmodule Krotos do
     end
 
     def buildTracksList(dict) do
-      Enum.map(dict["tracks"], fn(x) -> {
+      Enum.map(dict["tracks"], fn(x) -> %{
         :id => x["id"],
         :title => x["name"],
         :artist => x["artistName"],
