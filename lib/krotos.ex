@@ -19,7 +19,7 @@ defmodule Krotos do
     {genreName,randomGenre} = Enum.at(randomPool, :rand.uniform(length(randomPool) -1))
     randomSong = Enum.random(getTopTracksForGenre(randomGenre, 50))
     res = topSongs ++ filmSongs ++ popSongs ++ rockSongs ++ [oldieSong] ++ [randomSong]
-    IO.puts("Random Genre: " <> to_string(genreName)) 
+    IO.puts("Random Genre: " <> to_string(genreName))
     Enum.shuffle(res)
   end
 
@@ -118,15 +118,31 @@ defmodule Krotos do
     end
 
     def buildTop100Info(dict) do
-      Enum.map(dict["tracks"], fn(x) -> {x["id"], x["name"], x["artistName"], x["albumName"], x["previewURL"]} end)
+      Enum.map(dict["tracks"], fn(x) -> {
+        :id => x["id"],
+        :title => x["name"],
+        :artist => x["artistName"],
+        :album => x["albumName"],
+        :songUrl => x["previewURL"]}
+      end)
     end
 
     def buildGenreList(dict) do
-      Enum.map(dict["genres"], fn(x) -> {x["id"], x["name"], x["links"]["childGenres"]["ids"]} end)
+      Enum.map(dict["genres"], fn(x) -> {
+        :id => x["id"],
+        :title => x["name"],
+        :subgenreList => x["links"]["childGenres"]["ids"]}
+      end)
     end
 
     def buildTracksList(dict) do
-      Enum.map(dict["tracks"], fn(x) -> {x["id"], x["name"], x["artistName"], x["albumName"], x["previewURL"]} end)
+      Enum.map(dict["tracks"], fn(x) -> {
+        :id => x["id"],
+        :title => x["name"],
+        :artist => x["artistName"],
+        :album => x["albumName"],
+        :songUrl => x["previewURL"]}
+      end)
     end
   end
 end
